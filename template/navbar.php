@@ -1,9 +1,9 @@
 <?php
+require_once '../auth_guard.php';
 session_start();
 
 // dummy session (hapus kalau sudah ada)
-$_SESSION['name'] = $_SESSION['name'] ?? 'Petugas Perpustakaan';
-$_SESSION['role'] = $_SESSION['role'] ?? 'Admin';
+$_SESSION['username'] = $_SESSION['username'];
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -58,28 +58,18 @@ $_SESSION['role'] = $_SESSION['role'] ?? 'Admin';
         <!-- User Info -->
         <div class="text-right leading-tight">
             <p class="text-sm font-medium text-slate-700">
-                <?= $_SESSION['name']; ?>
-            </p>
-            <p class="text-xs text-slate-500">
-                <?= $_SESSION['role']; ?>
+                <?= $_SESSION['username']; ?>
             </p>
         </div>
 
         <!-- Logout -->
-        <a href="logout.php"
+        <a href="../logout.php"
            class="px-4 py-2 rounded-xl bg-accent1 text-white text-sm font-semibold hover:bg-red-600 transition">
             Logout
         </a>
     </div>
 
 </header>
-
-<!-- Dummy Content -->
-<main class="pt-20 ml-64 p-6">
-    <p class="text-slate-600">
-        Navbar standalone aktif ✅
-    </p>
-</main>
 
 </body>
 </html>

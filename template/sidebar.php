@@ -1,4 +1,5 @@
 <?php
+require_once '../auth_guard.php';
 session_start();
 // contoh dummy session (boleh dihapus kalau sudah ada)
 $_SESSION['role']  = $_SESSION['role']  ?? 'Admin';
@@ -58,7 +59,7 @@ $_SESSION['email'] = $_SESSION['email'] ?? 'admin@lp3i.ac.id';
     <!-- User Panel -->
     <div class="px-6 py-4 border-b border-white/10">
         <p class="text-sm font-semibold">
-            <?= $_SESSION['name']; ?>
+            <?= $_SESSION['username']; ?>
         </p>
         <p class="text-xs text-white/70">
             <?= $_SESSION['email']; ?>
@@ -94,16 +95,16 @@ $_SESSION['email'] = $_SESSION['email'] ?? 'admin@lp3i.ac.id';
             </button>
 
             <div x-show="open" x-transition class="mt-2 ml-6 space-y-1">
-                <a href="users.php" class="block px-4 py-2 rounded-lg hover:bg-white/10">
+                <a href="dashboard.php?page=users" class="block px-4 py-2 rounded-lg hover:bg-white/10">
                     Users
                 </a>
-                <a href="anggota.php" class="block px-4 py-2 rounded-lg hover:bg-white/10">
+                <a href="dashboard.php?page=anggota" class="block px-4 py-2 rounded-lg hover:bg-white/10">
                     Anggota
                 </a>
-                <a href="buku.php" class="block px-4 py-2 rounded-lg hover:bg-white/10">
+                <a href="dashboard.php?page=buku" class="block px-4 py-2 rounded-lg hover:bg-white/10">
                     Buku
                 </a>
-                <a href="kategori.php" class="block px-4 py-2 rounded-lg hover:bg-white/10">
+                <a href="dashboard.php?page=kategori" class="block px-4 py-2 rounded-lg hover:bg-white/10">
                     Kategori
                 </a>
             </div>
@@ -118,16 +119,5 @@ $_SESSION['email'] = $_SESSION['email'] ?? 'admin@lp3i.ac.id';
     </nav>
 
 </aside>
-
-<!-- Dummy content agar kelihatan -->
-<main class="ml-64 p-8">
-    <h2 class="text-2xl font-bold text-primary">
-        Sidebar Standalone Aktif ✅
-    </h2>
-    <p class="mt-2 text-slate-600">
-        Sidebar ini bisa dibuka langsung dan siap diintegrasikan ke halaman lain.
-    </p>
-</main>
-
 </body>
 </html>
