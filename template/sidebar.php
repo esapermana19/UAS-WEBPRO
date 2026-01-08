@@ -1,10 +1,7 @@
 <?php
 require_once '../auth_guard.php';
 session_start();
-// contoh dummy session (boleh dihapus kalau sudah ada)
-$_SESSION['role']  = $_SESSION['role']  ?? 'Admin';
-$_SESSION['name']  = $_SESSION['name']  ?? 'Petugas Perpustakaan';
-$_SESSION['email'] = $_SESSION['email'] ?? 'admin@lp3i.ac.id';
+
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -51,9 +48,6 @@ $_SESSION['email'] = $_SESSION['email'] ?? 'admin@lp3i.ac.id';
         <h1 class="text-lg font-bold tracking-wide">
             Perpustakaan LP3I
         </h1>
-        <p class="text-xs text-white/70">
-            <?= $_SESSION['role']; ?>
-        </p>
     </div>
 
     <!-- User Panel -->

@@ -40,7 +40,7 @@ $_SESSION['username'] = $_SESSION['username'];
 <body class="bg-slate-100">
 
 <!-- NAVBAR -->
-<header class="fixed top-0 left-64 right-0 h-16 bg-white shadow-sm flex items-center justify-between px-6 z-40">
+<header class="fixed top-0 left-64 right-0 h-16 bg-white shadow-lg flex items-center justify-between px-6 z-40">
 
     <!-- Page Title -->
     <div>
@@ -64,7 +64,7 @@ $_SESSION['username'] = $_SESSION['username'];
 
         <!-- Logout -->
         <a href="../logout.php"
-           class="px-4 py-2 rounded-xl bg-accent1 text-white text-sm font-semibold hover:bg-red-600 transition">
+           class="px-2 py-1 rounded-lg bg-accent1 text-white text-xs hover:bg-red-600 transition">
             Logout
         </a>
     </div>
