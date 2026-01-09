@@ -99,7 +99,7 @@ session_start();
                     Buku
                 </a>
                 <a href="dashboard.php?page=kategori" class="block px-4 py-2 rounded-lg hover:bg-white/10">
-                    Kategori
+                    Kategori Buku
                 </a>
             </div>
         </div>

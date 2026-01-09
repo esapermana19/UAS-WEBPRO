@@ -14,6 +14,9 @@ if (isset($_GET['page'])) {
         case 'tambah_anggota':
             include "pages/anggota/create.php";
             break;
+        case 'edit_anggota':
+            include "pages/anggota/edit.php";
+            break;
         //BUKU
         case 'buku':
             include "pages/buku/view.php";
@@ -21,6 +24,12 @@ if (isset($_GET['page'])) {
         //KATEGORI
         case 'kategori':
             include "pages/kategori/view.php";
+            break;
+        case 'tambah_kategori':
+            include "pages/kategori/create.php";
+            break;
+        case 'edit_kategori':
+            include "pages/kategori/edit.php";
             break;
         //HOME
         default:

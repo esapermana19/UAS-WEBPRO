@@ -7,7 +7,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Customers</title>
+    <title>anggota</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -77,22 +77,22 @@
                         $no = 1;
                         $sql = "SELECT * FROM anggota ORDER BY kode_anggota ASC";
                         $query = mysqli_query($koneksi, $sql);
-                        while ($customers = mysqli_fetch_array($query)):
+                        while ($anggota = mysqli_fetch_array($query)):
                         ?>
                             <tr class="text-sm text-gray-700 hover:bg-gray-50">
                                 <td class="px-4 py-3"><?php echo $no++; ?></td>
-                                <td class="px-4 py-3"><?php echo $customers['kode_anggota']; ?></td>
-                                <td class="px-4 py-3"><?php echo $customers['nama_anggota']; ?></td>
-                                <td class="px-4 py-3"><?php echo $customers['jk']; ?></td>
-                                <td class="px-4 py-3"><?php echo $customers['no_hp']; ?></td>
-                                <td class="px-4 py-3"><?php echo $customers['alamat']; ?></td>
+                                <td class="px-4 py-3"><?php echo $anggota['kode_anggota']; ?></td>
+                                <td class="px-4 py-3"><?php echo $anggota['nama_anggota']; ?></td>
+                                <td class="px-4 py-3"><?php echo $anggota['jk']; ?></td>
+                                <td class="px-4 py-3"><?php echo $anggota['no_hp']; ?></td>
+                                <td class="px-4 py-3"><?php echo $anggota['alamat']; ?></td>
                                 <td class="px-4 py-3">
                                     <div class="flex gap-2">
-                                        <a href="dashboard.php?page=edit_customer&customer_id=<?php echo $customers['customer_id']; ?>"
+                                        <a href="dashboard.php?page=edit_anggota&kode_anggota=<?php echo $anggota['kode_anggota']; ?>"
                                             class="bg-green-500 text-white px-3 py-1 rounded-md text-xs hover:bg-green-600">
                                             Edit
                                         </a>
-                                        <a href="pages/customers/action.php?act=delete&customer_id=<?php echo $customers['customer_id']; ?>"
+                                        <a href="pages/anggota/action.php?act=delete&kode_anggota=<?php echo $anggota['kode_anggota']; ?>"
                                             onclick="return confirm('Are you sure, Delete data?')"
                                             class="bg-red-500 text-white px-3 py-1 rounded-md text-xs hover:bg-red-600">
                                             Delete
