@@ -89,9 +89,9 @@ session_start();
             </button>
 
             <div x-show="open" x-transition class="mt-2 ml-6 space-y-1">
-                <a href="dashboard.php?page=users" class="block px-4 py-2 rounded-lg hover:bg-white/10">
+                <!-- <a href="dashboard.php?page=users" class="block px-4 py-2 rounded-lg hover:bg-white/10">
                     Users
-                </a>
+                </a> -->
                 <a href="dashboard.php?page=anggota" class="block px-4 py-2 rounded-lg hover:bg-white/10">
                     Anggota
                 </a>
@@ -105,7 +105,7 @@ session_start();
         </div>
 
         <!-- Peminjaman -->
-        <a href="peminjaman.php"
+        <a href="dashboard.php?page=peminjaman"
            class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition">
             <span class="w-2 h-2 rounded-full bg-accent2"></span>
             Peminjaman

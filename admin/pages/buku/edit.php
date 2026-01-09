@@ -121,16 +121,16 @@
 
 
 
-            <!-- Stok -->
+            <!-- stok_tersedia -->
             <div>
                 <label class="block text-sm font-medium text-slate-700 mb-1">
-                    Stok
+                    stok_tersedia
                 </label>
                 <input
                     type="text"
-                    name="stok"
+                    name="stok_tersedia"
                     class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-accent2 focus:border-accent2 outline-none transition"
-                    value="<?= $databuku['stok'] ?>"
+                    value="<?= $databuku['stok_tersedia'] ?>"
                     required>
             </div>
 

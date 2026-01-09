@@ -37,6 +37,16 @@ if (isset($_GET['page'])) {
         case 'edit_kategori':
             include "pages/kategori/edit.php";
             break;
+        //PEMINJAMAN
+        case 'peminjaman':
+            include "pages/peminjaman/view.php";
+            break;
+        case 'detail_peminjaman':
+            include "pages/peminjaman/detail_peminjaman.php";
+            break;
+        case 'tambah_peminjaman':
+            include "pages/peminjaman/create.php";
+            break;
         //HOME
         default:
             include "pages/home.php";
