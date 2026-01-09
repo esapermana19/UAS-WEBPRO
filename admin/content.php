@@ -21,6 +21,12 @@ if (isset($_GET['page'])) {
         case 'buku':
             include "pages/buku/view.php";
             break;
+        case 'tambah_buku':
+            include "pages/buku/create.php";
+            break;
+        case 'edit_buku':
+            include "pages/buku/edit.php";
+            break;
         //KATEGORI
         case 'kategori':
             include "pages/kategori/view.php";
