@@ -1,6 +1,5 @@
 <?php
 require_once '../auth_guard.php';
-session_start();
 
 // dummy session (hapus kalau sudah ada)
 $_SESSION['username'] = $_SESSION['username'];

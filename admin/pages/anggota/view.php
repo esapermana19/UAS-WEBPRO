@@ -30,16 +30,29 @@
         </div>
 
 
-
         <!-- CARD BODY -->
         <div class="p-6">
-
-            <!-- BUTTON ADD -->
-            <a href="dashboard.php?page=tambah_anggota"
-                class="inline-block mb-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
-                Tambah Anggota
-            </a>
-
+            <div class="flex justify-between items-center mb-4">
+                <!-- BUTTON ADD -->
+                <a href="dashboard.php?page=tambah_anggota"
+                    class="inline-block mb-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                    Tambah Anggota
+                </a>
+                <!-- Print -->
+                <a href="pages/anggota/print.php?
+                <?php
+                if (isset($_GET['nama_anggota'])) {
+                    echo 'nama_anggota=' . $_GET['nama_anggota'] . '&';
+                }
+                if (isset($_GET['kode_anggota'])) {
+                    echo 'kode_anggota=' . $_GET['kode_anggota'];
+                }
+                ?>"
+                    class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-md shadow-sm transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                    target="_blank">
+                    Print
+                </a>
+            </div>
             <!-- ALERT -->
             <?php if (isset($_SESSION['message'])): ?>
                 <div class="mb-4 px-4 py-3 rounded-lg 

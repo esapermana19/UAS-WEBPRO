@@ -1,6 +1,6 @@
 <?php
 require_once '../auth_guard.php';
-session_start();
+
 ?>
 <!DOCTYPE html>
 <html lang="id">

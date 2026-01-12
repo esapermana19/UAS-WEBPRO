@@ -6,8 +6,7 @@ ini_set('display_errors',1);
 session_start();
 
 // 2️⃣ Koneksi database
-require_once $_SERVER['DOCUMENT_ROOT'].'/UAS_WEB/config/koneksi.php';
-
+include "../../../config/koneksi.php";
 // 3️⃣ Ambil act
 if(!isset($_GET['act'])) exit;
 $act = $_GET['act'];

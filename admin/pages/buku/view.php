@@ -34,11 +34,28 @@
         <!-- CARD BODY -->
         <div class="p-6">
 
-            <!-- BUTTON ADD -->
-            <a href="dashboard.php?page=tambah_buku"
-                class="inline-block mb-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
-                Tambah Buku
-            </a>
+            <div class="flex justify-between items-center mb-4">
+
+                <a href="dashboard.php?page=tambah_buku"
+                    class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                    Tambah Buku
+                </a>
+
+                <a href="pages/buku/print.php?
+                <?php
+                if (isset($_GET['judul'])) {
+                    echo 'judul=' . $_GET['judul'] . '&';
+                }
+                if (isset($_GET['kategori_id'])) {
+                    echo 'kategori_id=' . $_GET['kategori_id'];
+                }
+                ?>"
+                    class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-md shadow-sm transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                    target="_blank">
+                    Print
+                </a>
+
+            </div>
 
             <!-- ALERT -->
             <?php if (isset($_SESSION['message'])): ?>

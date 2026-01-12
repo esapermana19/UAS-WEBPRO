@@ -34,11 +34,27 @@
         <!-- CARD BODY -->
         <div class="p-6">
 
-            <!-- BUTTON ADD -->
-            <a href="dashboard.php?page=tambah_peminjaman"
-                class="inline-block mb-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
-                Tambah Peminjaman
-            </a>
+            <div class="flex justify-between items-center mb-4">
+                <!-- BUTTON ADD -->
+                <a href="dashboard.php?page=tambah_peminjaman"
+                    class="inline-block mb-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                    Tambah Peminjaman
+                </a>
+                <!-- Print -->
+                <a href="pages/peminjaman/print.php?
+                <?php
+                if (isset($_GET['nama_anggota'])) {
+                    echo 'nama_anggota=' . $_GET['nama_anggota'] . '&';
+                }
+                if (isset($_GET['id_peminjaman'])) {
+                    echo 'id_peminjaman=' . $_GET['id_peminjaman'];
+                }
+                ?>"
+                    class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-md shadow-sm transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                    target="_blank">
+                    Print
+                </a>
+            </div>
 
             <!-- ALERT -->
             <?php if (isset($_SESSION['message'])): ?>
@@ -78,7 +94,7 @@
                             p.id_peminjaman,
                             p.kode_anggota,
                             a.nama_anggota,
-                            COUNT(dp.id_detail_peminjaman) AS total_buku
+                            COUNT(dp.kode_buku) AS total_buku
                         FROM peminjaman p
                         JOIN anggota a ON p.kode_anggota = a.kode_anggota
                         JOIN detail_peminjaman dp ON p.id_peminjaman = dp.id_peminjaman
@@ -95,7 +111,7 @@
                                 <td class="px-4 py-3"><?= $row['total_buku']; ?></td>
                                 <td class="px-4 py-3">
                                     <a href="dashboard.php?page=detail_peminjaman&id=<?= $row['id_peminjaman']; ?>"
-                                        class="bg-blue-500 text-white px-3 py-1 rounded-md text-xs hover:bg-blue-600">
+                                        class="bg-blue-600 text-white px-3 py-1 rounded-md text-xs hover:bg-blue-700">
                                         Detail
                                     </a>
                                 </td>

@@ -32,10 +32,18 @@ $today = new DateTime(date('Y-m-d'));
         <!-- HEADER -->
         <div class="flex justify-between items-center mb-4 pb-4 border-b">
             <h1 class="text-2xl font-semibold text-gray-800">Detail Peminjaman</h1>
-            <a href="dashboard.php?page=peminjaman"
-                class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                Kembali
-            </a>
+            <div class="justify-end">
+                <a href="dashboard.php?page=peminjaman"
+                    class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mx-2">
+                    Kembali
+                </a>
+
+                <a href="pages/peminjaman/print_detail.php?id=<?php echo $id; ?>"
+                    class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 mx-2"
+                    target="_blank">
+                    Print
+                </a>
+            </div>
         </div>
 
         <!-- TABLE -->
@@ -51,7 +59,7 @@ $today = new DateTime(date('Y-m-d'));
                         <th class="px-4 py-3">Hari Terlambat</th>
                         <th class="px-4 py-3">Tgl Dikembalikan</th>
                         <th class="px-4 py-3">Keterangan</th>
-                        <th class="px-4 py-3">Aksi</th>
+                        <th class="px-4 py-3">Pengembalian</th>
                     </tr>
                 </thead>
 
@@ -59,20 +67,18 @@ $today = new DateTime(date('Y-m-d'));
                     <?php
                     $sql = "
                     SELECT 
-                    dp.id_detail_peminjaman,
-                    b.judul,
-                    p.tgl_pinjam,
-                    p.tgl_kembali,
-                    dp.status,
-                    dp.tgl_dikembalikan,
-                    dp.hari_terlambat,
-                    dp.keterangan
-                FROM detail_peminjaman dp
-                JOIN buku b 
-                    ON dp.kode_buku = b.kode_buku
-                JOIN peminjaman p 
-                    ON dp.id_peminjaman = p.id_peminjaman
-                WHERE dp.id_peminjaman = '$id';";
+                        dp.id_detail_peminjaman,
+                        b.judul,
+                        p.tgl_pinjam,
+                        p.tgl_kembali,
+                        dp.status,
+                        dp.tgl_dikembalikan,
+                        dp.hari_terlambat,
+                        dp.keterangan
+                    FROM detail_peminjaman dp
+                    JOIN buku b ON dp.kode_buku = b.kode_buku
+                    JOIN peminjaman p ON dp.id_peminjaman = p.id_peminjaman
+                    WHERE dp.id_peminjaman = '$id';";
 
                     $query = mysqli_query($koneksi, $sql);
 
@@ -85,13 +91,6 @@ $today = new DateTime(date('Y-m-d'));
 
                     $no = 1;
                     while ($row = mysqli_fetch_assoc($query)) :
-
-                        // ===== DEBUG DATA =====
-                        /*
-                echo '<pre>';
-                var_dump($row);
-                echo '</pre>';
-                */
 
                         // AMANKAN TGL KEMBALI
                         $tgl_kembali = (!empty($row['tgl_kembali']) && $row['tgl_kembali'] !== '0000-00-00')
