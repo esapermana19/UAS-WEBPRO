@@ -61,6 +61,7 @@
             <h2 class="text-4xl md:text-5xl font-bold text-primary leading-tight mb-6">
                 Kelola Perpustakaan <br>
                 <span class="text-accent1">Lebih Modern</span> & Efisien
+                <p class="text-xl">By Esa Permana</p>
             </h2>
             <p class="text-slate-600 mb-8 leading-relaxed">
                 Aplikasi Perpustakaan LP3I membantu pengelolaan data buku, peminjaman,

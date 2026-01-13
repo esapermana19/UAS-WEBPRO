@@ -63,7 +63,7 @@ require_once '../auth_guard.php';
     <nav class="flex-1 px-4 py-6 space-y-2 text-sm">
 
         <!-- Dashboard -->
-        <a href="dashboard.php"
+        <a href="view_dashboard.php"
            class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition">
             <span class="w-2 h-2 rounded-full bg-accent2"></span>
             Dashboard

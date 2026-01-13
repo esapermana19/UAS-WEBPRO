@@ -83,12 +83,30 @@
         }
     </style>
 </head>
+<?php
+include "../../../config/koneksi.php";
+
+// Ambil ID dari URL
+$id = isset($_GET['id']) ? mysqli_real_escape_string($koneksi, $_GET['id']) : '';
+
+// Query untuk mendapatkan nama anggota berdasarkan id_peminjaman
+$query_nama = mysqli_query($koneksi, "SELECT a.nama_anggota 
+                                      FROM peminjaman p 
+                                      JOIN anggota a ON p.kode_anggota = a.kode_anggota 
+                                      WHERE p.id_peminjaman = '$id'");
+$data_nama = mysqli_fetch_assoc($query_nama);
+
+// Simpan ke variabel, jika tidak ada beri nilai strip (-)
+$nama_tampil = isset($data_nama['nama_anggota']) ? $data_nama['nama_anggota'] : '-';
+?>
 
 <body class="F4">
 
     <section class="sheet">
         <article>
-            <h2>Data Pinjaman</h2>
+            <h2>Data Pinjaman <?= $nama_tampil; ?>
+
+            </h2>
 
             <table>
                 <thead>

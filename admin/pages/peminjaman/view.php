@@ -34,26 +34,42 @@
         <!-- CARD BODY -->
         <div class="p-6">
 
-            <div class="flex justify-between items-center mb-4">
-                <!-- BUTTON ADD -->
-                <a href="dashboard.php?page=tambah_peminjaman"
-                    class="inline-block mb-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
-                    Tambah Peminjaman
-                </a>
-                <!-- Print -->
-                <a href="pages/peminjaman/print.php?
-                <?php
-                if (isset($_GET['nama_anggota'])) {
-                    echo 'nama_anggota=' . $_GET['nama_anggota'] . '&';
-                }
-                if (isset($_GET['id_peminjaman'])) {
-                    echo 'id_peminjaman=' . $_GET['id_peminjaman'];
-                }
-                ?>"
-                    class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-md shadow-sm transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-                    target="_blank">
-                    Print
-                </a>
+            <div class="flex flex-col md:flex-row justify-between items-center w-full gap-4 mb-4">
+                <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
+                    <a href="dashboard.php?page=tambah_peminjaman"
+                        class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition text-sm whitespace-nowrap">
+                        Tambah Peminjaman
+                    </a>
+
+                    <form action="" method="GET" class="flex gap-2">
+                        <input type="hidden" name="page" value="peminjaman">
+
+                        <input type="text" name="search"
+                            value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>"
+                            placeholder="Cari nama"
+                            class="border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-full md:w-64">
+
+                        <button type="submit"
+                            class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-gray-900 transition text-sm">
+                            Cari
+                        </button>
+
+                        <?php if (isset($_GET['search'])): ?>
+                            <a href="dashboard.php?page=peminjaman"
+                                class="bg-red-100 text-red-600 px-4 py-2 rounded-lg hover:bg-red-200 transition text-sm">
+                                Reset
+                            </a>
+                        <?php endif; ?>
+                    </form>
+                </div>
+
+                <div class="w-full md:w-auto flex justify-end">
+                    <a href="pages/peminjaman/print.php?<?= http_build_query($_GET) ?>"
+                        class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-lg shadow-sm transition"
+                        target="_blank">
+                        Print
+                    </a>
+                </div>
             </div>
 
             <!-- ALERT -->
@@ -89,8 +105,14 @@
                     </thead>
                     <tbody class="divide-y">
                         <?php $no = 1;
-                        $sql = "
-                        SELECT 
+                        // Logika Pencarian
+                        $where = "";
+                        if (isset($_GET['search']) && !empty($_GET['search'])) {
+                            $search = mysqli_real_escape_string($koneksi, $_GET['search']);
+                            $where = " WHERE a.nama_anggota LIKE '%$search%' OR p.id_peminjaman LIKE '%$search%' ";
+                        }
+
+                        $sql = "SELECT 
                             p.id_peminjaman,
                             p.kode_anggota,
                             a.nama_anggota,
@@ -98,8 +120,10 @@
                         FROM peminjaman p
                         JOIN anggota a ON p.kode_anggota = a.kode_anggota
                         JOIN detail_peminjaman dp ON p.id_peminjaman = dp.id_peminjaman
+                        $where
                         GROUP BY p.id_peminjaman
                         ORDER BY p.id_peminjaman DESC";
+
                         $query = mysqli_query($koneksi, $sql);
 
                         while ($row = mysqli_fetch_assoc($query)) : ?>

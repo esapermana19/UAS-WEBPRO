@@ -32,26 +32,42 @@
 
         <!-- CARD BODY -->
         <div class="p-6">
-            <div class="flex justify-between items-center mb-4">
-                <!-- BUTTON ADD -->
-                <a href="dashboard.php?page=tambah_anggota"
-                    class="inline-block mb-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
-                    Tambah Anggota
-                </a>
-                <!-- Print -->
-                <a href="pages/anggota/print.php?
-                <?php
-                if (isset($_GET['nama_anggota'])) {
-                    echo 'nama_anggota=' . $_GET['nama_anggota'] . '&';
-                }
-                if (isset($_GET['kode_anggota'])) {
-                    echo 'kode_anggota=' . $_GET['kode_anggota'];
-                }
-                ?>"
-                    class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-md shadow-sm transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-                    target="_blank">
-                    Print
-                </a>
+            <div class="flex flex-col md:flex-row justify-between items-center w-full gap-4 mb-6">
+                <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
+                    <a href="dashboard.php?page=tambah_anggota"
+                        class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition text-sm whitespace-nowrap">
+                        Tambah Anggota
+                    </a>
+
+                    <form action="" method="GET" class="flex gap-2">
+                        <input type="hidden" name="page" value="anggota">
+
+                        <input type="text" name="search"
+                            value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>"
+                            placeholder="Cari nama..."
+                            class="border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-full md:w-64">
+
+                        <button type="submit"
+                            class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-gray-900 transition text-sm">
+                            Cari
+                        </button>
+
+                        <?php if (isset($_GET['search'])): ?>
+                            <a href="dashboard.php?page=anggota"
+                                class="bg-red-100 text-red-600 px-4 py-2 rounded-lg hover:bg-red-200 transition text-sm">
+                                Reset
+                            </a>
+                        <?php endif; ?>
+                    </form>
+                </div>
+
+                <div class="w-full md:w-auto flex justify-end">
+                    <a href="pages/anggota/print.php?<?= http_build_query($_GET) ?>"
+                        class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-lg shadow-sm transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                        target="_blank">
+                        Print
+                    </a>
+                </div>
             </div>
             <!-- ALERT -->
             <?php if (isset($_SESSION['message'])): ?>
@@ -88,8 +104,24 @@
                     <tbody class="divide-y">
                         <?php
                         $no = 1;
-                        $sql = "SELECT * FROM anggota ORDER BY kode_anggota ASC";
+
+                        // Tambahkan logika filter pencarian di sini
+                        $where = "";
+                        if (isset($_GET['search']) && !empty($_GET['search'])) {
+                            $search = mysqli_real_escape_string($koneksi, $_GET['search']);
+                            // Filter berdasarkan nama atau kode anggota
+                            $where = " WHERE nama_anggota LIKE '%$search%' OR kode_anggota LIKE '%$search%' ";
+                        }
+
+                        // Gabungkan variabel $where ke dalam SQL
+                        $sql = "SELECT * FROM anggota $where ORDER BY kode_anggota ASC";
                         $query = mysqli_query($koneksi, $sql);
+
+                        // Cek jika data tidak ditemukan
+                        if (mysqli_num_rows($query) == 0) {
+                            echo "<tr><td colspan='7' class='px-4 py-8 text-center text-gray-500 italic'>Data anggota tidak ditemukan.</td></tr>";
+                        }
+
                         while ($anggota = mysqli_fetch_array($query)):
                         ?>
                             <tr class="text-sm text-gray-700 hover:bg-gray-50">

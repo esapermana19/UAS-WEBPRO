@@ -39,6 +39,7 @@ require_once '../auth_guard.php';
 </head>
 
 <body class="bg-slate-100 min-h-screen">
+    
 
     <!-- SIDEBAR -->
     <?php include "../template/sidebar.php"; ?>

@@ -52,7 +52,7 @@
                 Perpustakaan LP3I
             </h1>
             <p class="text-slate-500 text-sm">
-                Silakan login untuk melanjutkan
+                Esa Permana
             </p>
         </div>
         <?php

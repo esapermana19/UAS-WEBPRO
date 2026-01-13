@@ -33,26 +33,38 @@
 
         <!-- CARD BODY -->
         <div class="p-6">
-            <div class="flex justify-between items-center mb-4">
-                <!-- BUTTON ADD -->
-                <a href="dashboard.php?page=tambah_kategori"
-                    class="inline-block mb-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
-                    Tambah Kategori
-                </a>
-                <!-- Print -->
-                <a href="pages/kategori/print.php?
-                <?php
-                if (isset($_GET['nama_kategori'])) {
-                    echo 'nama_kategori=' . $_GET['nama_kategori'] . '&';
-                }
-                if (isset($_GET['kategori_id'])) {
-                    echo 'kategori_id=' . $_GET['kategori_id'];
-                }
-                ?>"
-                    class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-md shadow-sm transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-                    target="_blank">
-                    Print
-                </a>
+            <div class="flex flex-col md:flex-row justify-between items-center w-full gap-4 mb-6">
+                <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
+                    <a href="dashboard.php?page=tambah_kategori"
+                        class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition text-sm whitespace-nowrap">
+                        Tambah Kategori
+                    </a>
+
+                    <form action="" method="GET" class="flex gap-2">
+                        <input type="hidden" name="page" value="kategori">
+                        <input type="text" name="search"
+                            value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>"
+                            placeholder="Cari kategori..."
+                            class="border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-full md:w-64">
+                        <button type="submit"
+                            class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-gray-900 transition text-sm">
+                            Cari
+                        </button>
+                        <?php if (isset($_GET['search'])): ?>
+                            <a href="dashboard.php?page=kategori"
+                                class="bg-red-100 text-red-600 px-4 py-2 rounded-lg hover:bg-red-200 transition text-sm">
+                                Reset
+                            </a>
+                        <?php endif; ?>
+                    </form>
+                </div>
+                <div class="w-full md:w-auto flex justify-end">
+                    <a href="pages/kategori/print.php?<?= http_build_query($_GET) ?>"
+                        class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-lg shadow-sm transition"
+                        target="_blank">
+                        Print
+                    </a>
+                </div>
             </div>
 
             <!-- ALERT -->
@@ -87,8 +99,19 @@
                     <tbody class="divide-y">
                         <?php
                         $no = 1;
-                        $sql = "SELECT * FROM kategori ORDER BY kategori_id ASC";
+                        $where = "";
+                        if (isset($_GET['search']) && !empty($_GET['search'])) {
+                            $search = mysqli_real_escape_string($koneksi, $_GET['search']);
+                            $where = " WHERE nama_kategori LIKE '%$search%' OR kategori_id LIKE '%$search%' ";
+                        }
+
+                        $sql = "SELECT * FROM kategori $where ORDER BY kategori_id ASC";
                         $query = mysqli_query($koneksi, $sql);
+
+                        if (mysqli_num_rows($query) == 0) {
+                            // Sesuaikan colspan menjadi 4 karena kolom tabel Anda hanya ada 4 (No, ID, Nama, Action)
+                            echo "<tr><td colspan='4' class='px-4 py-8 text-center text-gray-500 italic'>Kategori tidak ditemukan.</td></tr>";
+                        }
                         while ($kategori = mysqli_fetch_array($query)):
                         ?>
                             <tr class="text-sm text-gray-700 hover:bg-gray-50">
